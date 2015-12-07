@@ -1,2 +1,2 @@
-# STATA side
+# LaTex side
 
