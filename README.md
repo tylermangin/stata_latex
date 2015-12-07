@@ -1,4 +1,3 @@
-# Making STATA and LaTeX Play Nice
 
 ## STATA_to_LaTex (.do)
 STATA commands to output LaTeX Code
