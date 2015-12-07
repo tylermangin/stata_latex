@@ -1,7 +1,7 @@
 # Making STATA and LaTex Play Nice
 
 ## STATA_to_LaTex (.do)
-STATA commands to output LaTex Code
+STATA commands to output LaTeX Code
 
 Tables: Summary Statistics, Regressions
 
