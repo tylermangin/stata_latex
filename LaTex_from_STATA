@@ -1,0 +1,235 @@
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%
+% Working with STATA Latex Template (Article)
+%
+% Tyler Mangin
+%
+% Last Updated: 12/7/2015
+
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+
+
+
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%	DOCUMENT CLASS
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+
+
+\documentclass[DIV=calc, paper=a4, fontsize=11pt, article]{scrartcl}	 % A4 paper and 11pt font size
+
+
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%	FORMATTING FANCINESS PACKAGES AND SNIPPETS
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{booktabs} % Horizontal rules in tables
+
+
+
+%----%----%----%----%----%----%----%
+% STATA Code Display Snippet
+%
+% This snippet is from 
+% update: 2014-04-16
+% version: 0.1
+% author: kongs
+% licence: MIT
+% url: https://gist.github.com/kongs-sublime/10862838
+%----%----%----%----%----%----%----%
+
+\usepackage{listings}
+\usepackage{textcomp}
+\makeatletter 
+\usepackage{accsupp}% http://ctan.org/pkg/accsupp
+\newcommand{\emptyaccsupp}[1]{\BeginAccSupp{ActualText={}}#1\EndAccSupp{}}
+
+% language definition
+\lstdefinelanguage{Stata}{
+    % Left for users to add missing commands,
+    % with possibility of choosing different style.
+    morekeywords=,
+    % Popular add-on commands
+    morekeywords=[2]{cntrade, chinafin, 
+                     wbopendata, spmap,
+    },
+    % System commands
+    morekeywords=[3]{regress, summarize, 
+                     display,
+    },
+    % Keywords
+    morekeywords=[4]{forvalues, if, foreach, set},
+    % Built-in functions
+    morekeywords=[5]{rnormal, runiform},
+    morecomment=[l]{//},
+    % morecomment=[l]{*},  // `*` maybe used as multiply operator. So use `//` as line comment.
+    morecomment=[s]{/*}{*/},
+    % morecomment=[s]{,}{//},
+    % The following is used by macros, like `lags'.
+    morecomment=[n][keywordstyle9]{`}{'},
+    morestring=[b]",
+    sensitive=true,
+}
+
+\lstdefinestyle{numbers}{
+    numbers=left, 
+    stepnumber=1, 
+    numberstyle=\tiny\emptyaccsupp,
+    xleftmargin=2em,
+}
+
+\lstdefinestyle{nonumbers}{
+    numbers=none,
+}
+
+\lstdefinestyle{stata-plain}{
+    % comment slanted and keywords bolded.
+    language=Stata,
+    basicstyle=\footnotesize\ttfamily,
+}
+
+\lstdefinestyle{stata-editor}{
+    language=Stata,
+    % size of the fonts for the code
+    basicstyle=\setmonofont{Consolas}\footnotesize\ttfamily,  
+    % Color settings to match do-file editor style
+    % Commands that are not included in the defination
+    keywordstyle={\color{NavyBlue}},  
+    % Popular add-on commands
+    keywordstyle=[2]{\color{NavyBlue}},
+    % System commands
+    keywordstyle=[3]{\color{NavyBlue}},
+    % Keywords
+    keywordstyle=[4]{\color{NavyBlue}},
+    % Built-in functions like rnormal
+    keywordstyle=[5]{\color{Blue}},
+    % Used by macros, i.e. `lags'  
+    keywordstyle=[9]{\color{TealBlue}},
+    stringstyle=\color{Maroon},
+    commentstyle=\color{OliveGreen},
+}
+
+
+\lstset{
+    language=Stata,
+    style=stata-plain,
+    % style=stata-editor,
+    style=numbers,
+    showstringspaces=false,
+    breaklines,
+    frame=single,
+    % To add missing commands
+    % morekeywords={xtreg, xtunitroot},
+}
+
+%----%----%----%
+\title{Template} 
+%----%----%----%
+
+%----%----%----%
+\author{Tyler Mangin} 
+%----%----%----%
+%----%----%----%
+
+
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%                                                                %
+%	                        DOCUMENT                             %
+%                                                                %
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+%----%----%----%----%----%----%----%----%----%----%----%----%----%
+
+\begin{document}
+\maketitle % Print the title
+
+
+
+
+\section*{STATA Integration}
+
+\subsection*{Displaying STATA Code}
+
+%----%----%----%----%----%----%----%
+% STATA Code Display 
+%----%----%----%----%----%----%----%
+\begin{lstlisting}
+use data.dta
+reg y x, robust
+\end{lstlisting}
+%----%----%----%----%----%----%----%
+
+\subsection*{Regression Table with estout/esttab}
+
+This table has a tendency to float around and is best in an appendix
+
+
+%----%----%----%----%----%----%----%
+% (lightly edited) Regression Table with estout/esttab
+%
+% code to generate (with reg1 and reg2 stored regressions):
+%
+% esttab reg1 reg2 using regression.tex, replace label ar2 ///
+% mtitles("Without State FE" "With State FE") booktabs     ///
+% title("Regression of Log Survey Count on County Demographics")
+%----%----%----%----%----%----%----%
+\begin{table}[htbp]\centering
+\caption{Summary Statistics\label{statstable}}
+\begin{tabular}{l*{1}{cc}}
+\toprule
+                    &\multicolumn{2}{c}{}     \\
+                    &        Mean&          Standard Deviation\\
+\midrule
+Outcome             &    -24.0&    43.6\\
+RHS Variable 1      &    5.1&    10.2\\
+RHS Variable 2      &    .24&    .09\\
+RHS Variable 3      &    2.0&    3.88\\
+\midrule
+Observations        &        1000&            \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+\begin{table}[htbp]\centering
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\caption{Regressions\label{regtable}}
+\begin{tabular}{l*{3}{c}}
+\hline\hline
+                    &\multicolumn{1}{c}{(1)}&\multicolumn{1}{c}{(2)}&\multicolumn{1}{c}{(3)}\\
+                    &\multicolumn{1}{c}{Regession 1}&\multicolumn{1}{c}{Regession 2}&\multicolumn{1}{c}{Regression 3}\\
+\hline
+RHS Variable 1      &       0.393\sym{**} &       0.382\sym{**} &       0.359\sym{***}\\
+                    &      (2.94)         &      (3.11)         &      (5.78)         \\
+[1em]
+RHS Variable 2      &                     &       12.81         &       12.53         \\
+                    &                     &      (1.01)         &      (1.73)         \\
+[1em]
+RHS Variable 3      &                     &      -4.489\sym{***}&       0.723         \\
+                    &                     &    (-13.84)         &      (1.51)         \\
+[1em]
+RHS Variable 3 squared&                     &                     &      -1.517\sym{***}\\
+                    &                     &                     &    (-53.53)         \\
+[1em]
+RHS interaction     &                     &                     &       3.204         \\
+                    &                     &                     &      (1.87)         \\
+[1em]
+Constant            &      -26.03\sym{***}&      -19.93\sym{***}&      -2.747         \\
+                    &    (-16.95)         &     (-5.66)         &     (-1.39)         \\
+\hline
+Observations        &        1000         &        1000         &        1000         \\
+\hline\hline
+\multicolumn{4}{l}{\footnotesize \textit{t} statistics in parentheses}\\
+\multicolumn{4}{l}{\footnotesize \sym{*} \(p<0.05\), \sym{**} \(p<0.01\), \sym{***} \(p<0.001\)}\\
+\end{tabular}
+\end{table}
+
+
+
+
+
+\end{document}
