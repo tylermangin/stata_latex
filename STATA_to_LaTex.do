@@ -12,7 +12,8 @@ by : Tyler Mangin
 /* Directory 
 
 Files Required:
-~none~
+US_States_LowRes_2015data.dta  //for map example
+US_States_LowRes_2015coord.dta //for map example
 
 */
 
