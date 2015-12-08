@@ -170,7 +170,7 @@ spmap y using US_States_LowRes_2015coord.dta, id(_ID) /// _ID is the matching fi
 				fcolor(Blues2) /// the least ugly of the default map color settings...
 				osize(vvthin vvthin vvthin vvthin) /// have to specifiy for each unit on the map!
 				/*ocolor(none none none none) */     /// alternative no borders if the color breaks are clean enough between map units
-				legend(label(2 "0 to X") label(3 "X to X" )label(4 "X to X") label(5 "X to X" ) size(vsmall)) /// have to specifiy for each unit on the map!
+				legend(label(2 "0 to X") label(3 "X to X" )label(4 "X to X") label(5 "X to X" ) size(vsmall)) /// have to specifiy for each break!
 						
 graph2tex , 			epsfile(graphname) /// saves an graphname.eps picture file to directory
 				number /// seqentially numbers graphname#.eps
