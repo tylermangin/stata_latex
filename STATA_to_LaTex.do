@@ -95,22 +95,22 @@ format y x1 x2 x3 x3_sq x2x3 %12.1f
 				/* 1.) Summary Statistic Tables */
 // Summary Statistics: Using summarize and esttab
 estpost summarize y x1 x2 x3
-esttab using table.tex,    replace  ///overwrite file
-						   cells("mean sd") /// calls the desired statistics from summarize command
-						   label    /// uses variable labels
-						   nonumber /// takes away numbered columns
-						   nostar   /// removes some LaTex ode from the output for formatting the star character commonly used in regression tables
-						   booktabs /// uses the fancier booktabs package in LaTex
-						   title(Summary Statistics\label{statstable}) 
+esttab using table.tex,    	replace  ///overwrite file
+				cells("mean sd") /// calls the desired statistics from summarize command
+				label    /// uses variable labels
+				nonumber /// takes away numbered columns
+				nostar   /// removes some LaTex ode from the output for formatting the star character commonly used in regression tables
+				booktabs /// uses the fancier booktabs package in LaTex
+				title(Summary Statistics\label{statstable}) 
 						   
 // Comparison Across Groups: Using summarize and tabstat
 estpost tabstat y x1 x2 x3, by(indicator) statistics(mean sd) 
-esttab using table.tex, replace  ///overwrite file
-						   cells("y x1 x2 x3") /// calls the desired statistics from summarize command
-						   nonumber /// takes away numbered columns
-						   nostar   /// removes some LaTex ode from the output for formatting the star character commonly used in regression tables
-						   booktabs /// uses the fancier booktabs package in LaTex
-						   title(Summary Statistics by Indicator\label{compartable}) 
+esttab using table.tex, 	replace  ///overwrite file
+				cells("y x1 x2 x3") /// calls the desired statistics from summarize command
+				nonumber /// takes away numbered columns
+				nostar   /// removes some LaTex ode from the output for formatting the star character commonly used in regression tables
+				booktabs /// uses the fancier booktabs package in LaTex
+				title(Summary Statistics by Indicator\label{compartable}) 
 						   
 				/* 2.) Regression Tables */
 reg y x1
@@ -121,43 +121,45 @@ reg y x1 x2 x3 x3_sq x2x3
 estimates store reg3
 	   
 esttab reg1 reg2 reg3 using regressions.tex,  replace  ///overwrite file
-											  label    /// uses variable labels
-											  mtitles("Regession 1" "Regession 2" "Regression 3") /// column titles booktabs
-											  title(Regressions\label{regtable})
+				label /// uses variable labels
+				mtitles("Regession 1" "Regession 2" "Regression 3") /// column titles booktabs
+				title(Regressions\label{regtable})
 
 											  
 										///* Graphs *///											  
-											  
+set scheme sj //The nicest of the default schemes
+
 					/* 1.) Scatter Plots */
 
-scatter y x1, 			mlwidth(vvvthin)   /// thinnest outline
-						mlcolor(gs5)       /// the sj scheme default fill is gs6, so thisoutline is just slightly darker to highlight
-						msize(medlarge)    ///  makes the markers slightly larger
-						graphregion(color(white)) // makes the region outside the graph white. sj's default is....something gross...salmon?
+scatter y x1, 			mlwidth(vvvthin) /// thinnest outline
+				mlcolor(gs5) /// the sj scheme default fill is gs6, so thisoutline is just slightly darker to highlight
+				msize(medlarge) ///  makes the markers slightly larger
+				graphregion(color(white)) // makes the region outside the graph white. sj's default is....something gross...salmon?
 
 graph2tex , 			epsfile(graphname) /// saves an graphname.eps picture file to directory
-						number 			   /// seqentially numbers graphname#.eps
-						caption(caption)   /// includes a caption
-						label(fig1)
+				number /// seqentially numbers graphname#.eps
+				caption(caption) /// includes the caption inside the parenthesis
+				label(fig1)
 						
 ///* LaTex Code printed in result window *///
 						
-					/* 2.) Categorical Variables */						
-catplot state,	percent			   ///displays percents instead of frequencies
-						var1opts(sort(1)descending) ///displays bars decending from highest frequency
-						label			   ///uses variable labels
-						graphregion(color(white)) // makes the region outside the graph white. sj's default is....something gross...salmon?
-
-						
+					/* 2.) Categorical Variables */	
+					
+catplot state,			percent ///displays percents instead of frequencies
+				var1opts(sort(1)descending) ///displays bars decending from highest frequency
+				label ///uses variable labels
+				graphregion(color(white)) // makes the region outside the graph white. sj's default is....something gross...salmon?
+				
 graph2tex , 			epsfile(graphname) /// saves an graphname.eps picture file to directory
-						number 			   /// seqentially numbers graphname#.eps
-						caption(caption)   /// includes a caption
-					        label(fig2)
+				number /// seqentially numbers graphname#.eps
+				caption(caption) /// includes the caption inside the parenthesis
+				label(fig2)
 						
 						
 ///* LaTex Code printed in result window *///
 
 					/* 3.) Maps */	
+					
 //prepare data for merge with state-level map data
 collapse y x1 x2 x3, by(statename)
 //merge with state-level map data (on variable statename)
@@ -165,12 +167,12 @@ merge m:1 statename using US_States_LowRes_2015data.dta
 	drop if _merge==2 //only graph states for which data exists
 
 spmap y using US_States_LowRes_2015coord.dta, id(_ID) /// _ID is the matching field for the coordinate data set to draw the map
-											  fcolor(Blues2) /// the least ugly of the default map color settings...
-											  osize(vvthin vvthin vvthin vvthin) /// have to specifiy for each unit on the map!
-											/*ocolor(none none none none) */     /// alternative no borders if the color breaks are clean enough between map units
-											  legend(label(2 "0 to X") label(3 "X to X" )label(4 "X to X") label(5 "X to X" ) size(vsmall)) /// have to specifiy for each unit on the map!
+				fcolor(Blues2) /// the least ugly of the default map color settings...
+				osize(vvthin vvthin vvthin vvthin) /// have to specifiy for each unit on the map!
+				/*ocolor(none none none none) */     /// alternative no borders if the color breaks are clean enough between map units
+				legend(label(2 "0 to X") label(3 "X to X" )label(4 "X to X") label(5 "X to X" ) size(vsmall)) /// have to specifiy for each unit on the map!
 						
 graph2tex , 			epsfile(graphname) /// saves an graphname.eps picture file to directory
-						number 			   /// seqentially numbers graphname#.eps
-						caption(caption)   /// includes a caption
-						label(fig3)
+				number /// seqentially numbers graphname#.eps
+				caption(caption) /// includes the caption inside the parenthesis
+				label(fig3)
