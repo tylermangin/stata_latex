@@ -3,6 +3,10 @@
 1.) Summary Statistics Tables
 2.) Regression Tables
 
+1.) Scatterplots
+2.) Categorical Bar Charts
+3.) Maps
+
 by : Tyler Mangin
 
 */
