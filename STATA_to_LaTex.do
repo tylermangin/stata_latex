@@ -126,7 +126,8 @@ estimates store reg3
 	   
 esttab reg1 reg2 reg3 using regressions.tex,  replace  ///overwrite file
 				label /// uses variable labels
-				mtitles("Regession 1" "Regession 2" "Regression 3") /// column titles booktabs
+				mtitles("Regession 1" "Regession 2" "Regression 3") /// column titles 
+				booktabs /// uses the fancier booktabs package in LaTex
 				title(Regressions\label{regtable})
 
 											  
