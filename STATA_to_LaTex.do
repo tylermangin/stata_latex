@@ -46,10 +46,10 @@ graph2tex
 
 */
 
-findit estout
-findit catplot
-findit spmap
-findit graph2tex
+ssc install estout
+ssc install catplot
+ssc install spmap
+ssc install graph2tex
 
 set more off // allows for program to run through
 
