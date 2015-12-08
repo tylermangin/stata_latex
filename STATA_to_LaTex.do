@@ -32,18 +32,19 @@ findit estout
 findit catplot
 findit spmap
 
-// allows for program to run without user assistance
-set more off
+set more off // allows for program to run through
 
 				/* example data */
 // creates example data so the prgram runs
 set obs 1000
 gen double x1 = rnormal(5,10) 
 gen double x2 = rnormal(1,0.5)
-gen double x3 = rnormal(0,4)				
+gen double x3 = rnormal(0,4)
+gen double e  = rnormal(0,20)
 gen x3_sq = x3^2
 gen x2x3 = x2*x3
 gen indicator = x1>3
+gen y = 0.25*x1 + 1.5*x2 - 0.5*x3 + 1*x3^2 - 2*x2*x3 + e
 				
 
 // variable lables help make tables pretty			
