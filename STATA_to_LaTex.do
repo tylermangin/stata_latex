@@ -136,12 +136,21 @@ set scheme sj //The nicest of the default schemes
 
 					/* 1.) Scatter Plots */
 
-scatter y x1, 			mlwidth(vvvthin) /// thinnest outline
-				mlcolor(gs5) /// the sj scheme default fill is gs6, so thisoutline is just slightly darker to highlight
-				msize(medlarge) ///  makes the markers slightly larger
-				graphregion(color(white)) // makes the region outside the graph white. sj's default is....something gross...salmon?
+scatter y x1, 	msize(medlarge) ///  makes the markers slightly larger
+				mlwidth(vvthin) /// thinner outline on markers
+				mcolor(gs8) /// this fill is just slightly lighter to highlight markers
+				mlcolor(gs5) /// thisoutline is just slightly darker to highlight markers
+				lcolor(gs3) /// darker gray lines instead of black
+				ylabel(, labcolor(gs3) labsize(small)) /// darker gray lines instead of black
+				xlabel(, labcolor(gs3) labsize(small)) /// darker gray lines instead of black
+				ytitle(, color(gs3)) /// darker gray lines instead of black
+				xtitle(, color(gs3)) /// darker gray lines instead of black
 
-graph2tex , 			epsfile(graphname) /// saves an graphname.eps picture file to directory
+				graphregion(color("252 252 252")) /// makes the region outside the graph off- white 
+				plotregion(color("252 252 252")) // makes the region outside the graph off- white 
+
+				
+graph2tex , 	epsfile(graphname) /// saves an graphname.eps picture file to directory
 				number /// seqentially numbers graphname#.eps
 				caption(caption) /// includes the caption inside the parenthesis
 				label(fig1)
@@ -150,10 +159,11 @@ graph2tex , 			epsfile(graphname) /// saves an graphname.eps picture file to dir
 						
 					/* 2.) Categorical Variables */	
 					
-catplot state,			percent ///displays percents instead of frequencies
+catplot state,	percent ///displays percents instead of frequencies				
 				var1opts(sort(1)descending) ///displays bars decending from highest frequency
 				label ///uses variable labels
-				graphregion(color(white)) // makes the region outside the graph white. sj's default is....something gross...salmon?
+				graphregion(color("252 252 252")) /// makes the region outside the graph off- white 
+				plotregion(color("252 252 252")) // makes the region outside the graph off- white 
 				
 graph2tex , 			epsfile(graphname) /// saves an graphname.eps picture file to directory
 				number /// seqentially numbers graphname#.eps
