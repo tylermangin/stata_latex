@@ -53,7 +53,7 @@ graph2tex
 ssc install estout
 ssc install catplot
 ssc install spmap
-ssc install graph2tex
+findit graph2tex // not on SSC
 
 set more off // allows for program to run through
 
